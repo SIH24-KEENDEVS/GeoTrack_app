@@ -30,12 +30,13 @@ const HomeScreen2 = () => {
           ]}
           onPress={handleCheckInOut}
         >
+          <Icon name="gesture-tap" size={50} color="#fff" />
           <Text style={styles.checkInOutText}>
             {checkedIn ? "Check out" : "Check in"}
           </Text>
         </TouchableOpacity>
         <Text style={styles.timeText}>Monday, 25 April 2023</Text>
-        <Text style={styles.timeText}>09:00</Text>
+        <Text style={styles.timeText2}>09:00</Text>
       </View>
 
       <View style={styles.footer}>
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#1c1c1c",
     padding: 20,
+    paddingTop: 45,
   },
   header: {
     flexDirection: "row",
@@ -72,6 +74,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     fontWeight: "bold",
+    backgroundColor: "#2c2c2c",
+    borderRadius: 10,
+    padding: 15,
   },
   subtitle: {
     color: "#ddd",
@@ -82,6 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     marginBottom: 20,
+    marginTop: 20,
   },
   attendanceText: {
     color: "#fff",
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
   },
   checkInOutContainer: {
     alignItems: "center",
-    marginBottom: 20,
+    margin: 40,
   },
   checkInOutButton: {
     width: 200,
@@ -103,6 +109,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 10,
+    borderWidth: 2,
+    borderColor: "#fff",
+    shadowColor: "#2c2c2c",
+    shadowOffset: {
+      width: 1,
+      height: 50,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    elevation: 5,
   },
   checkInOutText: {
     color: "#fff",
@@ -110,10 +126,23 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   timeText: {
+    marginTop: 20,
     color: "#fff",
     fontSize: 16,
+    padding: 15,
+    backgroundColor: "#2c2c2c",
+    borderRadius: 10,
+  },
+  timeText2: {
+    color: "#fff",
+    marginTop: 10,
+    fontSize: 16,
+    padding: 15,
+    backgroundColor: "#2c2c2c",
+    borderRadius: 10,
   },
   footer: {
+    marginTop: 40,
     flexDirection: "row",
     justifyContent: "space-between",
   },
