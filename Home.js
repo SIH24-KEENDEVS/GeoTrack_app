@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-const HomeScreen = () => {
+const HomeScreen2 = () => {
   const [checkedIn, setCheckedIn] = useState(false);
 
   const handleCheckInOut = () => {
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default HomeScreen2;

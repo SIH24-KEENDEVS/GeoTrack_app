@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import HomeScreen from "./Home";
 
 import { StyleSheet } from "react-native";
-import HomeScreen from "./Home";
+import HomeScreen2 from "./Home";
 
 export default function App() {
   const local_coords = { latitude: 0, longitude: 0 }; // isko manually ek fixed position ka dalana
@@ -88,7 +88,7 @@ export default function App() {
       </ImageBackground> */}
 
       {/* Ye Main Screen ka Component h */}
-      <HomeScreen />
+      <HomeScreen2 />
     </>
   );
 }
