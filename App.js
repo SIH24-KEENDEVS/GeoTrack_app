@@ -1,16 +1,25 @@
 import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import HomeScreen from "./Home";
-
+import Records from "./Records";
+import Myroute from "./Myroute";
 import { StyleSheet } from "react-native";
 import HomeScreen2 from "./Home";
+import { NavigationContainer } from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
+
+
+
+
+const Screen=createBottomTabNavigator();
 export default function App() {
   const local_coords = { latitude: 0, longitude: 0 }; // isko manually ek fixed position ka dalana
   const [hasPermission, setHasPermission] = useState(false);
   const [location, setLocation] = useState({
     coords: { latitude: 0, longitude: 0 },
-  });
+  }); 
 
   async function locationCheck() {
     let sta = await Location.requestForegroundPermissionsAsync();
@@ -88,7 +97,40 @@ export default function App() {
       </ImageBackground> */}
 
       {/* Ye Main Screen ka Component h */}
-      <HomeScreen2 />
+      
+      <NavigationContainer>
+  
+        <Screen.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: '#e91e63',
+        headerShown:false,
+
+      }} >
+          <Screen.Screen name="Home" component={HomeScreen2}
+           options={{
+            tabBarIcon: ({ color, size }) => (
+               <Ionicons name='home' size={size} color={color} />
+            ),
+          }}
+          />
+          <Screen.Screen name="Records"component={Records}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+               <Ionicons name='calendar' size={size} color={color} />
+            ),
+          }}
+          />
+          <Screen.Screen name="Location"component={Myroute}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+               <Ionicons name='location' size={size} color={color} />
+            ),
+          }}
+          />
+        </Screen.Navigator>
+      </NavigationContainer>
+      {/* <HomeScreen2 /> */}
     </>
   );
 }

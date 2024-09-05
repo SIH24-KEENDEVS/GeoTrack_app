@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   footer: {
-    marginTop: 40,
+    marginTop: -30,
     flexDirection: "row",
     justifyContent: "space-between",
   },
