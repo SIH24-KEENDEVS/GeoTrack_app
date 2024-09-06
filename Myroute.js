@@ -12,11 +12,13 @@ export default function Myroute() {
     longitude: 77.525,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
-  }}/>
+  }}>
   <Marker
-        coordinate={{latitude:  23.2504, longitude: 77.525}}
-        image={{uri:'https://i.pinimg.com/originals/fc/48/7b/fc487b390a02aa1e82be4c32dd53b0ab.jpg'}}
+  coordinate={{ latitude: 23.2504, longitude: 77.525 }}
+  title="Lnct college"
 />
+</MapView>
+
     </View>
   );
 }

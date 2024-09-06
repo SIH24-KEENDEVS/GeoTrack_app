@@ -98,13 +98,16 @@ export default function App() {
     // console.log(final);
     final_lat=location.coords.latitude.toString()
     final_lon=location.coords.longitude.toString()
+    const now = new Date();
+    const currentDate = now.toLocaleDateString(); // Format: MM/DD/YYYY or based on locale
+    const currentTime = now.toLocaleTimeString(); 
     if (final > 200) {
       console.log("You are away than 200m range");
-      sendAttendanceData(undefined,undefined,undefined,undefined,final_lat,final_lon)
+      sendAttendanceData(undefined,currentDate,currentTime,undefined,final_lat,final_lon)
 
     } else {
       console.log("You are in  200m range");
-      sendAttendanceData(undefined,undefined,undefined,undefined,final_lat,final_lon)
+      sendAttendanceData(undefined,currentDate,currentTime,undefined,final_lat,final_lon)
       
 
 
@@ -113,10 +116,10 @@ export default function App() {
     
 
   }
-  async function sendAttendanceData(empId=1234567890, date='2024-09-07', timeIn='09:00', timeOut="00:00", latitude, longitude) {
+  async function sendAttendanceData(empId=1234567890, date, timeIn, timeOut, latitude, longitude) {
     // console.log(empId=1234567890, date='2024-09-07', timeIn='09:00', timeOut="00:00", latitude, longitude)
     try {
-      const response = await axios.patch(`http://192.168.43.1930:3000/postattendance/${empId}`, {
+      const response = await axios.patch(`http://192.168.43.193:3000/postattendance/${empId}`, {
         date: date,
         time_in: timeIn,
         time_out: timeOut,
@@ -197,6 +200,7 @@ export default function App() {
     </>
   );
 }
+// export {Calculator, getLocation}
 
 const styles = StyleSheet.create({
   back_image: {

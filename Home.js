@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+// import  {Calculator, getLocation} from "App.js"
 
 const HomeScreen2 = () => {
   const [checkedIn, setCheckedIn] = useState(false);
