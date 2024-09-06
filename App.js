@@ -124,7 +124,7 @@ export default function App() {
           />
           <Screen.Screen
             name="Profile"
-            component={UserProfile}
+            component={Myroute}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="location" size={size} color={color} />
