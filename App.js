@@ -1,7 +1,7 @@
 import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import HomeScreen from "./Home";
-import Records from "./Records";
+import MyScreen from "./Records";
 import Myroute from "./Myroute";
 import { StyleSheet } from "react-native";
 import HomeScreen2 from "./Home";
@@ -10,10 +10,30 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AttendanceReport from "./AttendanceReport";
 import UserProfile from "./Profile";
+import axios from 'axios' 
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 const Screen = createBottomTabNavigator();
+
+function MyStack() {
+  return (
+    <Stack.Navigator >
+      <Stack.Screen  name="re" component={MyScreen}  options={{ 
+          headerShown: false, 
+        }}/>
+       <Stack.Screen name="AttendanceReport" component={AttendanceReport}  options={{ 
+          headerShown: false, 
+        }} />
+      <Stack.Screen name="Myroute" component={Myroute}  options={{ 
+          headerShown: false, 
+        }} />
+    </Stack.Navigator>
+  );
+}
 export default function App() {
-  const local_coords = { latitude: 0, longitude: 0 }; // isko manually ek fixed position ka dalana
+  const local_coords = { latitude: 0 , longitude:  0 }; // isko manually ek fixed position ka dalana
   const [hasPermission, setHasPermission] = useState(false);
   const [location, setLocation] = useState({
     coords: { latitude: 0, longitude: 0 },
@@ -44,7 +64,10 @@ export default function App() {
 
   useEffect(() => {
     locationCheck();
-  });
+    getLocation();
+    Calculator();
+
+  },[]);
 
   async function getLocation() {
     const current_loc = await Location.getCurrentPositionAsync({});
@@ -55,6 +78,7 @@ export default function App() {
       if (!text) {
         console.log("nothing is there to show");
       }
+      // Calculator()
       // console.log( text.coords.latitude,  text.coords.longitude)
 
       // console.log(final)
@@ -62,19 +86,55 @@ export default function App() {
       console.log(error);
     }
   }
-  getLocation();
-  final = CalculateDistance(
-    local_coords.latitude,
-    local_coords.longitude,
-    location.coords.latitude,
-    location.coords.longitude
-  );
-  console.log(final);
-  if (final > 200) {
-    console.log("You are away than 200m range");
-  } else {
-    console.log("You are in  200m range");
+
+  // getLocation();
+  function Calculator(){
+    final = CalculateDistance(  
+      local_coords.latitude,
+      local_coords.longitude,
+      location.coords.latitude,
+      location.coords.longitude
+    );
+    // console.log(final);
+    final_lat=location.coords.latitude.toString()
+    final_lon=location.coords.longitude.toString()
+    if (final > 200) {
+      console.log("You are away than 200m range");
+      sendAttendanceData(undefined,undefined,undefined,undefined,final_lat,final_lon)
+
+    } else {
+      console.log("You are in  200m range");
+      sendAttendanceData(undefined,undefined,undefined,undefined,final_lat,final_lon)
+      
+
+
+    }
+  
+    
+
   }
+  async function sendAttendanceData(empId=1234567890, date='2024-09-07', timeIn='09:00', timeOut="00:00", latitude, longitude) {
+    // console.log(empId=1234567890, date='2024-09-07', timeIn='09:00', timeOut="00:00", latitude, longitude)
+    try {
+      const response = await axios.patch(`http://192.168.43.1930:3000/postattendance/${empId}`, {
+        date: date,
+        time_in: timeIn,
+        time_out: timeOut,
+        lat: latitude, 
+        lon: longitude 
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+  
+     
+      console.log('Response from server:', response.data);
+    } catch (error) {
+      console.error('Error sending attendance data:', error);
+    }
+  }
+  
 
   return (
     <>
@@ -115,7 +175,7 @@ export default function App() {
           />
           <Screen.Screen
             name="Records"
-            component={AttendanceReport}
+            component={MyStack}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="calendar" size={size} color={color} />
@@ -124,10 +184,10 @@ export default function App() {
           />
           <Screen.Screen
             name="Profile"
-            component={Myroute}
+            component={UserProfile}
             options={{
               tabBarIcon: ({ color, size }) => (
-                <Ionicons name="location" size={size} color={color} />
+                <Ionicons name="build-sharp" size={size} color={color} />
               ),
             }}
           />

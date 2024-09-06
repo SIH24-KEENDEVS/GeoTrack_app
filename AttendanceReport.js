@@ -40,7 +40,7 @@ const attendanceData = [
   },
 ];
 
-const AttendanceReport = () => {
+const AttendanceReport = ({navigation}) => {
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <View style={styles.row}>

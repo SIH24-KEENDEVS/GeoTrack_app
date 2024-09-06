@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-const MyScreen = () => {
+const MyScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -15,11 +15,12 @@ const MyScreen = () => {
             <Text style={styles.buttonText}>Hours Worked</Text>
             <Text style={styles.buttonText}>5hrs</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AttendanceReport')} >
             <Ionicons name="newspaper" size={32} color="green" />
 
             <Text style={styles.buttonText}>Attendence</Text>
             <Text style={styles.buttonText}>50% this month</Text>
+
           </TouchableOpacity>
         </View>
         <View style={styles.buttonRow}>
@@ -28,11 +29,12 @@ const MyScreen = () => {
             <Text style={styles.buttonText}>Distance Covered</Text>
             <Text style={styles.buttonText}>50kms</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() =>navigation.navigate('Myroute')} >
             <Ionicons name="map-sharp" size={32} color="green" />
 
             <Text style={styles.buttonText}>See routes</Text>
             <Text style={styles.buttonText}>My route</Text>
+            
           </TouchableOpacity>
         </View>
       </View>
